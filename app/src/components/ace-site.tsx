@@ -47,7 +47,7 @@ export function PageIntro({ eyebrow, title, children }: { eyebrow?: string; titl
     const slug = window.location.pathname.split("/").filter(Boolean)[0] || "";
     if (!["about", "what-we-do", "projects", "get-involved"].includes(slug)) return;
     let active = true;
-    fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-website")
+    fetch("https://solarsearch-app.vercel.app/api/public/ace-website")
       .then((r) => r.ok ? r.json() : Promise.reject(new Error("Content endpoint unavailable")))
       .then((data) => { if (active && data.content?.[slug]) setCopy(data.content[slug]); })
       .catch(() => { /* Keep checked-in copy if the CMS is unavailable. */ });
