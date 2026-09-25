@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 export function AceMark() {
   return <span className="ace-mark" aria-hidden="true"><span className="ace-mark__sun" /><span className="ace-mark__letters">ACE</span></span>;
@@ -36,13 +36,24 @@ export function SiteFooter() {
   return <footer className="ace-footer">
     <div className="ace-footer__brand"><AceMark /><div><strong>Ashford Community Energy</strong><p>Community-led clean energy for local benefit.</p><p className="ace-footer__status">Community benefit society registration details will be published once formally confirmed.</p></div></div>
     <nav aria-label="Footer navigation"><Link to="/about">About</Link><Link to="/what-we-do">What we do</Link><Link to="/projects">Projects</Link><Link to="/get-involved">Get involved</Link><Link to="/faqs">FAQs</Link><Link to="/contact">Contact</Link></nav>
-    <nav className="ace-footer__legal" aria-label="Policies and governance"><Link to="/governance">Governance & policies</Link><Link to="/privacy">Privacy notice</Link><Link to="/cookies">Cookie notice</Link><Link to="/accessibility">Accessibility</Link><Link to="/website-terms">Website terms</Link></nav>
+    <nav className="ace-footer__legal" aria-label="Policies and governance"><Link to="/governance">Governance & policies</Link><Link to="/privacy">Privacy notice</Link><Link to="/cookies">Cookie notice</Link><Link to="/accessibility">Accessibility</Link><Link to="/website-terms">Website terms</Link><Link to="/admin">Admin login</Link></nav>
     <p className="ace-footer__note">Nothing on this website is an offer to invest. Any future community investment opportunity would have separate formal documentation.</p>
   </footer>;
 }
 
 export function PageIntro({ eyebrow, title, children }: { eyebrow?: string; title: string; children: ReactNode }) {
-  return <section className="ace-page-intro">{eyebrow ? <p className="ace-eyebrow">{eyebrow}</p> : null}<h1>{title}</h1><div className="ace-page-intro__copy">{children}</div></section>;
+  const [copy, setCopy] = useState<{ title?: string; intro?: string } | null>(null);
+  useEffect(() => {
+    const slug = window.location.pathname.split("/").filter(Boolean)[0] || "";
+    if (!["about", "what-we-do", "projects", "get-involved"].includes(slug)) return;
+    let active = true;
+    fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-website")
+      .then((r) => r.ok ? r.json() : Promise.reject(new Error("Content endpoint unavailable")))
+      .then((data) => { if (active && data.content?.[slug]) setCopy(data.content[slug]); })
+      .catch(() => { /* Keep checked-in copy if the CMS is unavailable. */ });
+    return () => { active = false; };
+  }, []);
+  return <section className="ace-page-intro">{eyebrow ? <p className="ace-eyebrow">{eyebrow}</p> : null}<h1>{copy?.title || title}</h1><div className="ace-page-intro__copy">{copy?.intro ? <p>{copy.intro}</p> : children}</div></section>;
 }
 
 export function PageShell({ children }: { children: ReactNode }) {
