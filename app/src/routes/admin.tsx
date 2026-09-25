@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageIntro } from "@/components/ace-site";
 import { pageHead } from "@/lib/seo";
 
-const ADMIN = "https://solarsearch-app-broggie1s-projects.vercel.app/settings/admin/website";
+const ADMIN = "https://solarsearch-app.vercel.app/settings/admin/website";
 
 export const Route = createFileRoute("/admin")({
   head: () => pageHead("Admin login | Ashford Community Energy", "Sign in to the existing ACE administration area.", "/admin", true),

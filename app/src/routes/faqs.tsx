@@ -30,7 +30,7 @@ function FaqPage() {
   const [visible,setVisible] = useState<[string,string][]>(faqs.map(([q,a])=>[q,a]));
   useEffect(()=>{
     let active=true;
-    fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-website")
+    fetch("https://solarsearch-app.vercel.app/api/public/ace-website")
       .then(r=>r.ok?r.json():Promise.reject(new Error("Content unavailable")))
       .then(data=>{
         const rows=data.content?.faqs?.faqs;

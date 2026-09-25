@@ -17,7 +17,7 @@ type ContactResult = { ok: boolean; reference?: string; error?: string };
 
 /** All personal details are sent server-to-server into the existing ACE/SolarSearch admin inbox. */
 export const submitAceContact = createServerFn({method:"POST"}).validator(contactSchema).handler(async ({data})=>{
-  const response = await fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-contact",{
+  const response = await fetch("https://solarsearch-app.vercel.app/api/public/ace-contact",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(data),
