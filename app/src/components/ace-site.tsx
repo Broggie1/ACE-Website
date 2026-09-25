@@ -36,7 +36,7 @@ export function SiteFooter() {
   return <footer className="ace-footer">
     <div className="ace-footer__brand"><AceMark /><div><strong>Ashford Community Energy</strong><p>Community-led clean energy for local benefit.</p><p className="ace-footer__status">Community benefit society registration details will be published once formally confirmed.</p></div></div>
     <nav aria-label="Footer navigation"><Link to="/about">About</Link><Link to="/what-we-do">What we do</Link><Link to="/projects">Projects</Link><Link to="/get-involved">Get involved</Link><Link to="/faqs">FAQs</Link><Link to="/contact">Contact</Link></nav>
-    <nav className="ace-footer__legal" aria-label="Policies and governance"><Link to="/governance">Governance & policies</Link><Link to="/privacy">Privacy notice</Link><Link to="/cookies">Cookie notice</Link><Link to="/accessibility">Accessibility</Link><Link to="/website-terms">Website terms</Link></nav>
+    <nav className="ace-footer__legal" aria-label="Policies and governance"><Link to="/governance">Governance & policies</Link><Link to="/privacy">Privacy notice</Link><Link to="/cookies">Cookie notice</Link><Link to="/accessibility">Accessibility</Link><Link to="/website-terms">Website terms</Link><a href="https://solarsearch-app.vercel.app/login?next=%2Fsettings%2Fadmin" rel="noopener noreferrer">Team login</a></nav>
     <p className="ace-footer__note">Nothing on this website is an offer to invest. Any future community investment opportunity would have separate formal documentation.</p>
   </footer>;
 }
