@@ -44,7 +44,7 @@ export function SiteFooter() {
 export function PageIntro({ eyebrow, title, children }: { eyebrow?: string; title: string; children: ReactNode }) {
   const [copy, setCopy] = useState<{ title?: string; intro?: string } | null>(null);
   useEffect(() => {
-    const slug = window.location.pathname.replace(/^\\/+|\\/+$/g, "");
+    const slug = window.location.pathname.split("/").filter(Boolean)[0] || "";
     if (!["about", "what-we-do", "projects", "get-involved"].includes(slug)) return;
     let active = true;
     fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-website")
