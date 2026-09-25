@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = "https://ashford-community-energy.higgsfield.app";
+export const SITE_ORIGIN = "https://ace-website-tawny.vercel.app";
 
 export function pageHead(title: string, description: string, path: string, legal = false) {
   const url = `${SITE_ORIGIN}${path === "/" ? "" : path}`;
