@@ -31,3 +31,34 @@
 .ace-site-check,.ace-trust-strip{width:min(calc(100% - 2.5rem),var(--max));margin-inline:auto}.ace-site-check{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;margin-top:1rem;margin-bottom:4rem;background:var(--green);color:var(--paper)}.ace-site-check__visual{position:relative;min-height:640px;overflow:hidden}.ace-site-check__visual img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}.ace-site-check__visual::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgb(23 63 53/.86),transparent 58%)}.ace-site-check__visual p{position:absolute;left:2rem;right:2rem;bottom:1.7rem;z-index:1;max-width:34ch;margin:0;font-size:1.05rem;line-height:1.5;color:var(--white)}.ace-site-check__content{padding:4rem}.ace-site-check__content .ace-eyebrow{color:var(--soft)}.ace-site-check__content>h2{max-width:12ch;font-size:clamp(2.6rem,4.5vw,4.8rem);line-height:.98;letter-spacing:-.045em}.ace-site-check__grid{display:grid;grid-template-columns:1fr 1fr;margin:3rem 0;border-top:1px solid rgb(255 255 255/.24)}.ace-site-check__grid article{padding:1.6rem 1.5rem 1.6rem 0;border-bottom:1px solid rgb(255 255 255/.24)}.ace-site-check__grid article:nth-child(odd){border-right:1px solid rgb(255 255 255/.24)}.ace-site-check__grid article:nth-child(even){padding-left:1.5rem}.ace-site-check__grid span{font:500 .7rem "IBM Plex Mono",monospace;color:var(--gold)}.ace-site-check__grid h3{margin:.55rem 0 .45rem;font-size:1.35rem}.ace-site-check__grid p{margin:0;color:var(--soft);line-height:1.55}.ace-site-check__cta{display:inline-flex;gap:.75rem;align-items:center;text-decoration:none;border-bottom:2px solid var(--gold);padding:.75rem 0;font-weight:600}.ace-trust-strip{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:3rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.ace-trust-strip>div{padding:1.5rem 1.5rem 1.5rem 0;border-right:1px solid var(--line)}.ace-trust-strip>div:not(:first-child){padding-left:1.5rem}.ace-trust-strip>div:last-child{border-right:0}.ace-trust-strip strong,.ace-trust-strip span{display:block}.ace-trust-strip strong{font-size:1rem;margin-bottom:.5rem}.ace-trust-strip span{color:var(--ink);font-size:.88rem;line-height:1.5}
 @media(max-width:900px){.ace-header{grid-template-columns:1fr auto}.ace-header__actions{gap:.5rem}.ace-mobile-menu{display:block}.ace-nav{display:none}.ace-site-check{grid-template-columns:1fr}.ace-site-check__visual{min-height:430px}.ace-site-check__content{padding:2.75rem}.ace-trust-strip{grid-template-columns:1fr 1fr}.ace-trust-strip>div:nth-child(2){border-right:0}.ace-trust-strip>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 @media(max-width:600px){.ace-home main,.ace-page main{padding-top:70px}.ace-header{height:70px}.ace-brand__name{display:none}.ace-nav-contact{padding:.68rem .72rem;font-size:.62rem}.ace-mobile-menu summary{padding:.68rem .72rem;font-size:.62rem}.ace-site-check,.ace-trust-strip{width:calc(100% - 2rem)}.ace-site-check__visual{min-height:320px}.ace-site-check__content{padding:2rem}.ace-site-check__grid{grid-template-columns:1fr}.ace-site-check__grid article,.ace-site-check__grid article:nth-child(even),.ace-site-check__grid article:nth-child(odd){padding:1.35rem 0;border-right:0}.ace-trust-strip{grid-template-columns:1fr}.ace-trust-strip>div,.ace-trust-strip>div:not(:first-child){padding:1.25rem 0;border-right:0;border-bottom:1px solid var(--line)}.ace-trust-strip>div:last-child{border-bottom:0}}
+
+/* ACE navigation: keep the complete top menu on laptops and smaller tablets.
+   The previous 900px breakpoint unnecessarily collapsed it into "Menu".
+   The existing fixed header remains above the scroll-led homepage on every route. */
+.ace-header,.ace-header--overlay{z-index:2000;background:rgb(244 247 243 / .98)}
+.ace-nav{white-space:nowrap}
+@media (min-width:761px) and (max-width:1100px){
+  .ace-header{gap:1rem}
+  .ace-nav{gap:clamp(.6rem,1.4vw,1.2rem)}
+  .ace-nav a{font-size:.79rem}
+  .ace-brand__name{display:none}
+  .ace-nav-contact{font-size:.67rem;padding:.65rem .7rem}
+}
+@media (min-width:761px) and (max-width:900px){
+  .ace-header{grid-template-columns:auto 1fr auto}
+  .ace-nav{display:flex;justify-content:center}
+  .ace-mobile-menu{display:none}
+}
+@media (max-width:760px){
+  .ace-header{height:70px;grid-template-columns:1fr auto}
+  .ace-brand__name{display:inline;font-size:.83rem;max-width:155px;line-height:1.1}
+  .ace-nav{display:none}
+  .ace-mobile-menu{display:block}
+  .ace-header__actions{gap:.4rem}
+  .ace-home main,.ace-page main{padding-top:70px}
+}
+@media (max-width:420px){
+  .ace-brand__name{max-width:110px;font-size:.75rem}
+  .ace-nav-contact{padding:.65rem .45rem;font-size:.59rem}
+  .ace-mobile-menu summary{padding:.65rem .55rem}
+}
