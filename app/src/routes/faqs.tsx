@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { PageIntro, PageShell } from "@/components/ace-site";
 import { StructuredData } from "@/components/StructuredData";
 import { pageHead, SITE_ORIGIN } from "@/lib/seo";
@@ -20,18 +21,29 @@ const faqs = [
   ["How does ACE use information submitted through the website?", "ACE uses contact-form information to respond to enquiries, assess potential sites and manage related follow-up. The Privacy Notice explains the information collected, lawful bases, retention approach and your data-protection rights."],
 ] as const;
 
-const FAQ_SCHEMA = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  url: `${SITE_ORIGIN}/faqs`,
-  mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
-});
-
 export const Route = createFileRoute("/faqs")({
   head: () => pageHead("FAQs | Ashford Community Energy", "Answers about Ashford community energy, ACE projects, site hosting, project funding, community benefit, participation and data privacy.", "/faqs"),
   component: FaqPage,
 });
 
 function FaqPage() {
-  return <PageShell><StructuredData json={FAQ_SCHEMA} /><PageIntro eyebrow="Frequently asked questions" title="Clear answers about community energy"><p>Community energy can sound complicated. These answers explain what ACE is developing, how projects may work and what is not yet being offered.</p></PageIntro><section className="ace-faq-list">{faqs.map(([q, a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</section><section className="ace-faq-cta"><div><h2>Still have a question?</h2><p>Use the enquiry form for a site, partnership, governance, privacy or general question.</p></div><a href="/contact#contact-form">Contact ACE</a></section></PageShell>;
+  const [visible,setVisible] = useState<[string,string][]>(faqs.map(([q,a])=>[q,a]));
+  useEffect(()=>{
+    let active=true;
+    fetch("https://solarsearch-app-broggie1s-projects.vercel.app/api/public/ace-website")
+      .then(r=>r.ok?r.json():Promise.reject(new Error("Content unavailable")))
+      .then(data=>{
+        const rows=data.content?.faqs?.faqs;
+        if(active&&Array.isArray(rows)&&rows.length>0&&rows.every((r:unknown)=>typeof r==="object"&&r!==null&&typeof (r as {question?:unknown}).question==="string"&&typeof (r as {answer?:unknown}).answer==="string")){
+          setVisible(rows.map((r:{question:string;answer:string})=>[r.question,r.answer]));
+        }
+      }).catch(()=>{ /* Retain checked-in FAQs if CMS is unavailable. */ });
+    return ()=>{active=false;};
+  },[]);
+  const schema=JSON.stringify({
+    "@context":"https://schema.org","@type":"FAQPage",
+    url:`${SITE_ORIGIN}/faqs`,
+    mainEntity:visible.map(([q,a])=>({"@type":"Question",name:q,acceptedAnswer:{"@type":"Answer",text:a}})),
+  }).replace(/</g,"\\u003c");
+  return <PageShell><StructuredData json={schema} /><PageIntro eyebrow="Frequently asked questions" title="Clear answers about community energy"><p>Community energy can sound complicated. These answers explain what ACE is developing, how projects may work and what is not yet being offered.</p></PageIntro><section className="ace-faq-list">{visible.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</section><section className="ace-faq-cta"><div><h2>Still have a question?</h2><p>Use the enquiry form for a site, partnership, governance, privacy or general question.</p></div><a href="/contact#contact-form">Contact ACE</a></section></PageShell>;
 }
