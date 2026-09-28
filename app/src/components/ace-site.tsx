@@ -1,13 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 
+function AceLogo({ compact = false }: { compact?: boolean }) {
+  return <span className={compact ? "ace-company-logo ace-company-logo--compact" : "ace-company-logo"} aria-hidden="true">
+    <img src="/assets/brand/ace-company-logo.png" alt="" width="360" height="192" />
+  </span>;
+}
+
 export function AceMark() {
-  return <span className="ace-mark" aria-hidden="true"><span className="ace-mark__sun" /><span className="ace-mark__letters">ACE</span></span>;
+  return <AceLogo compact />;
 }
 
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   return <header className={overlay ? "ace-header ace-header--overlay" : "ace-header"}>
-    <Link to="/" className="ace-brand" aria-label="Ashford Community Energy home"><AceMark /><span className="ace-brand__name">Ashford Community Energy</span></Link>
+    <Link to="/" className="ace-brand" aria-label="Ashford Community Energy home"><AceMark /></Link>
     <nav className="ace-nav" aria-label="Main navigation">
       <Link to="/about" activeProps={{ className: "is-active" }}>About</Link>
       <Link to="/what-we-do" activeProps={{ className: "is-active" }}>What we do</Link>
@@ -34,7 +40,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
 
 export function SiteFooter() {
   return <footer className="ace-footer">
-    <div className="ace-footer__brand"><AceMark /><div><strong>Ashford Community Energy</strong><p>Community-led clean energy for local benefit.</p><p className="ace-footer__status">Community benefit society registration details will be published once formally confirmed.</p></div></div>
+    <div className="ace-footer__brand"><AceLogo /><div><strong>Ashford Community Energy</strong><p>Community-led clean energy for local benefit.</p><p className="ace-footer__status">Community benefit society registration details will be published once formally confirmed.</p></div></div>
     <nav aria-label="Footer navigation"><Link to="/about">About</Link><Link to="/what-we-do">What we do</Link><Link to="/projects">Projects</Link><Link to="/get-involved">Get involved</Link><Link to="/faqs">FAQs</Link><Link to="/contact">Contact</Link></nav>
     <nav className="ace-footer__legal" aria-label="Policies and governance"><Link to="/governance">Governance & policies</Link><Link to="/privacy">Privacy notice</Link><Link to="/cookies">Cookie notice</Link><Link to="/accessibility">Accessibility</Link><Link to="/website-terms">Website terms</Link><Link to="/admin">Admin login</Link></nav>
     <p className="ace-footer__note">Nothing on this website is an offer to invest. Any future community investment opportunity would have separate formal documentation.</p>
