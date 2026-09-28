@@ -62,3 +62,30 @@
   .ace-nav-contact{padding:.65rem .45rem;font-size:.59rem}
   .ace-mobile-menu summary{padding:.65rem .55rem}
 }
+
+
+/* 2026-09-28 ACE brand refresh: use the supplied company logo.
+   The header crops only the small strapline so the mark remains legible at navigation size;
+   the footer shows the complete logo lock-up. */
+.ace-company-logo{display:block;width:210px;flex:0 0 auto}
+.ace-company-logo img{display:block;width:100%;height:auto}
+.ace-company-logo--compact{width:148px;height:64px;overflow:hidden}
+.ace-company-logo--compact img{width:148px;max-width:none}
+.ace-footer__brand{align-items:flex-start}
+.ace-footer__brand>.ace-company-logo{width:190px}
+@media (min-width:761px) and (max-width:1100px){
+  .ace-company-logo--compact{width:124px;height:55px}
+  .ace-company-logo--compact img{width:124px}
+}
+@media (max-width:760px){
+  .ace-company-logo--compact{width:126px;height:55px}
+  .ace-company-logo--compact img{width:126px}
+}
+@media (max-width:600px){
+  .ace-footer__brand{flex-direction:column}
+  .ace-footer__brand>.ace-company-logo{width:175px}
+}
+@media (max-width:420px){
+  .ace-company-logo--compact{width:112px;height:50px}
+  .ace-company-logo--compact img{width:112px}
+}
